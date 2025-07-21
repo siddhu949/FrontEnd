@@ -1,0 +1,24 @@
+ var toDoId =0;
+      function toDoAdd("taskDescption","targetDate","status","currentDate"){
+        var taskDescption=document.getElementById('Taskdesc').value;
+        var targetDate=document.getElementById('TargetDate').value;
+        var status=document.getElementById('status').value;
+        var currentDate=document.getElementById("currentDate").value;
+
+        var newToDoTr=document.createElement('tr');
+        var newtaskDescptionTd=document.createElement('td');
+        var newtargetDateTd=document.createElement('td');
+        var newstatusTd=document.creteElement('td');
+        var newcurrentDateTd=document.createElement('td');
+        var newTodoIdTd=document.createElement('td');
+        toDo++;
+
+        console.log(taskDescption,targetDate ,status,currentDate);
+        newtodoIdTd.appendchild(newTodoIdTd);
+       newtaskDescptionTd.innerText= Taskdesc;
+       newtargetDateTd.innerText=TargetDate;
+       newstatusTd.innerText=status;
+       newcurrentDateTd.innerText=disdate;
+
+
+      }

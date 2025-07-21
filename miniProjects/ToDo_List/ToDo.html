@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<HTML>
+    <Head>
+        <title>ToDo_List</title>
+        <link rel="stylesheet" href="styles.css">
+        <script>
+            setInterval (function(){
+                var date=new Date()
+                var time=date.toLocaleTimeString();
+                document.getElementById("distime").innerText=time;
+            },1000)
+           setInterval(function () {
+    var now = new Date();
+    
+    // Format: Saturday, July 20, 2025
+    var dateString = now.toLocaleDateString('en-US', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+    });
+
+    document.getElementById("disdate").innerText = dateString;
+}, 1000);
+var toDoId =1;
+      function toDoAdd(taskDesc, targetDate, targetTime, status, currentDate){
+
+       /* var taskDescption=document.getElementById('Taskdesc').value;
+        var targetDate=document.getElementById('TargetDate').value;
+        var status=document.getElementById('status').value;
+        var currentDate=document.getElementById("currentDate").value;*/
+
+       //create a table new row using document method craeteElement
+        var newToDoTr=document.createElement('tr');
+        //create cell using td 
+        var newTodoIdTd=document.createElement('td');
+        newTodoIdTd.innerText=toDoId;
+        //create again cell using id
+        var newtaskDescptionTd=document.createElement('td');
+        newtaskDescptionTd.innerText=taskDesc;
+
+        var newtargetDateTd=document.createElement('td');
+        newtargetDateTd.innerText=targetDate;
+
+        var newtargetTimeTd=document.createElement('td');
+        newtargetTimeTd.innerText=targetTime;
+
+        var newstatusTd=document.createElement('td');
+        newstatusTd.innerText=status;
+
+        var newcurrentDateTd=document.createElement('td');
+        newcurrentDateTd.innerText=currentDate;
+
+        //appendchild which add to the existing table row using varname./document created for that element.appendchild
+        newToDoTr.appendChild(newTodoIdTd);
+        newToDoTr.appendChild(newtaskDescptionTd);
+        newToDoTr.appendChild(newtargetDateTd);
+        newToDoTr.appendChild(newtargetTimeTd);
+        newToDoTr.appendChild(newstatusTd);
+        newToDoTr.appendChild(newcurrentDateTd);
+
+        // now we should appendchild means we should add the row to table means new row
+        var table=document.getElementById('toDoTable');
+        table.appendChild(newToDoTr);
+
+        toDoId++;//increament id
+
+       
+
+        console.log(taskDesc, targetDate, targetTime, status, currentDate);
+      
+      }
+     //we use event listener to call the function when button is clicked
+     //it is used for the page reload prevention in this method
+
+      function submitTask(event){
+        event.preventDefault(); // stop the page from reloading
+        var taskDescription=document.getElementById('taskDesc').value;
+        var rawtargetDate=document.getElementById('targetDate').value;
+        var parts=rawtargetDate.split("-");
+        var targetDate=parts[2]+"-"+parts[1]+"-"+parts[0];
+        var targetTime=document.getElementById('targetTime').value;
+        var status=document.getElementById('status').value;
+        var now=new Date();
+        var currentDate=now.toLocaleDateString()+" "+now.toLocaleTimeString();
+       //validation-we use loop to check the input fields
+       if(taskDescription===""||targetDate===""||targetTime===""){
+        alert("Please fill all the fields");
+        return;
+       }
+       //calling or invoke the function
+       toDoAdd(taskDescription, targetDate, targetTime, status, currentDate);
+       //after adding the task we should clear the input fields
+       document.getElementById('taskDesc').value="";
+       document.getElementById('targetDate').value="";
+       document.getElementById('targetTime').value="";
+       document.getElementById('status').value="";
+      }
+      //event which calls after loading all images and all
+      window.onload = function () {
+      var today = new Date().toISOString().split("T")[0];//iso8601 format date to object and split into two parts from 0 date
+       document.getElementById("targetDate").min = today;
+      
+     };
+      
+        </script>
+        <style>
+            body{
+                position:relative;
+                margin:0;
+                padding :0;
+                
+            }
+            body::before{
+                content:"";
+                position:fixed;
+                background-image:url('image.png');
+                background-repeat:no-repeat;
+                background-attachment: fixed;
+                background-size: cover;
+                opacity: 0.6;
+                z-index: -1; 
+                top:0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+
+            }
+            .container{
+                  position: relative;
+                 max-width: 800px;
+                 margin: 40px auto;
+                 padding: 20px;
+                 background-color: rgba(240, 240, 240, 0.9); 
+                 border-radius: 10px;
+                 box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);  
+            }
+            #Taskdesc{
+                border-radius: 10px;
+                box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); 
+                background-color: rgb(178, 176, 184);
+            }
+            
+
+        </style>
+        
+    </Head>
+    <body >
+        <h2 style="text-align: center;">ToDo List</h2>
+        <p id="disdate" style="text-align: center;"></p>
+        <p id="distime" style="text-align: center;"></p>
+       <div class="container">
+    <p>Add New Task</p>
+    <form onsubmit="submitTask(event)">
+        <div class="form-group">
+            <label for="taskDesc">Task Description</label>
+            <textarea id="taskDesc"  rows="4" placeholder="Enter task description..." required></textarea>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group half">
+                <label for="targetDate">Target Date</label>
+                <input type="date" id="targetDate" required>
+            </div>
+            <div class="form-group half">
+                <label for="targetTime">Target Time</label>
+                <input type="time" id="targetTime" >
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="status">Status</label>
+            <select id="status" disabled required>
+                <!-- <option value="" selected>Select status</option>-->
+                <option value="pending" selected>Pending</option>
+                <option value="completed">Completed</option>
+                <option value="finished">Finished</option>
+                <option value="in_progress">In Progress</option>
+                <option value="on_hold">On Hold</option>
+                <option value="cancelled">Cancelled</option>
+            </select>
+        </div>
+
+        <button type="submit">Submit Task</button>
+    </form>
+</div>
+<div class="container">
+    <br>
+    <table id="toDoTable">
+        <tr>
+        <th>ID</th>
+        <th>Task Description</th>
+        <th>Target Date</th>
+        <th>Target Time</th>
+        <th>Status</th>
+        <th>created at</th>
+        </tr>
+        <!--
+        <tr>
+            <td>1</td>
+            <td>project documentation</td>
+            <td>19-02-2025</td>
+            <td>10:00</td>
+            <td>compeleted</td>
+            <td>2025-02-19 10:00:00</td>
+        </tr>
+        <tr>
+            <td>2</td>
+            <td>project documentation</td>
+            <td>19-02-2025</td>
+            <td>10:00</td>
+            <td>compeleted</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>3</td>
+            <td>project documentation</td>
+            <td>19-02-2025</td>
+            <td>10:00</td>
+            <td>compeleted</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>4</td>
+            <td>project documentation</td>
+            <td>19-02-2025</td>
+            <td>10:00</td>
+            <td>compeleted</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>5</td>
+            <td>project documentation</td>
+            <td>19-02-2025</td>
+            <td>10:00</td>
+            <td>compeleted</td>
+            <td></td>
+        </tr>
+    -->
+    </table>
+</div>
+
+        
+        
+   </body>
+</HTML>
