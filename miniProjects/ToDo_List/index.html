@@ -1,101 +1,104 @@
 <!DOCTYPE html>
 <HTML>
-    <Head>
-        <title>ToDo_List</title>
-        <link rel="stylesheet" href="styles.css">
-        <script src="fun.js" defer></script>
-        <style>
-            body{
-                position:relative;
-                margin:0;
-                padding :0;
-                
-            }
-            body::before{
-                content:"";
-                position:fixed;
-                background-image:url('image.png');
-                background-repeat:no-repeat;
-                background-attachment: fixed;
-                background-size: cover;
-                opacity: 0.6;
-                z-index: -1; 
-                top:0;
-                left: 0;
-                width: 100%;
-                height: 100%;
 
-            }
-            .container{
-                  position: relative;
-                 max-width: 800px;
-                 margin: 40px auto;
-                 padding: 20px;
-                 background-color: rgba(240, 240, 240, 0.9); 
-                 border-radius: 10px;
-                 box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);  
-            }
-            #Taskdesc{
-                border-radius: 10px;
-                box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); 
-                background-color: rgb(178, 176, 184);
-            }
-            
+<Head>
+    <title>ToDo_List</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="fun.js" defer></script>
+    <style>
+        body {
+            position: relative;
+            margin: 0;
+            padding: 0;
 
-        </style>
-        
-    </Head>
-    <body >
-        <h2 style="text-align: center;">ToDo List</h2>
-        <p id="disdate" style="text-align: center;"></p>
-        <p id="distime" style="text-align: center;"></p>
-       <div class="container">
-    <p>Add New Task</p>
-    <form onsubmit="submitTask(event)">
-        <div class="form-group">
-            <label for="taskDesc">Task Description</label>
-            <textarea id="taskDesc"  rows="4" placeholder="Enter task description..." required></textarea>
-        </div>
+        }
 
-        <div class="form-row">
-            <div class="form-group half">
-                <label for="targetDate">Target Date</label>
-                <input type="date" id="targetDate" required>
+        body::before {
+            content: "";
+            position: fixed;
+            background-image: url('image.png');
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            opacity: 0.6;
+            z-index: -1;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+
+        }
+
+        .container {
+            position: relative;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: rgba(240, 240, 240, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        #Taskdesc {
+            border-radius: 10px;
+            box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+            background-color: rgb(178, 176, 184);
+        }
+    </style>
+
+</Head>
+
+<body>
+    <h2 style="text-align: center;">ToDo List</h2>
+    <p id="disdate" style="text-align: center;"></p>
+    <p id="distime" style="text-align: center;"></p>
+    <div class="container">
+        <p>Add New Task</p>
+        <form onsubmit="submitTask(event)">
+            <div class="form-group">
+                <label for="taskDesc">Task Description</label>
+                <textarea id="taskDesc" rows="4" placeholder="Enter task description..." required></textarea>
             </div>
-            <div class="form-group half">
-                <label for="targetTime">Target Time</label>
-                <input type="time" id="targetTime" >
+
+            <div class="form-row">
+                <div class="form-group half">
+                    <label for="targetDate">Target Date</label>
+                    <input type="date" id="targetDate" required>
+                </div>
+                <div class="form-group half">
+                    <label for="targetTime">Target Time</label>
+                    <input type="time" id="targetTime">
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label for="status">Status</label>
-            <select id="status" disabled required>
-                <!-- <option value="" selected>Select status</option>-->
-                <option value="pending" selected>Pending</option>
-                <option value="completed">Completed</option>
-                <option value="finished">Finished</option>
-                <option value="in_progress">In Progress</option>
-                <option value="on_hold">On Hold</option>
-                <option value="cancelled">Cancelled</option>
-            </select>
-        </div>
+            <div class="form-group">
+                <label for="status">Status</label>
+                <select name="status" id="status" disabled>
+                    <option value="">Select Status</option>
+                    <!-- <option value="pending">Pending</option> -->
+                    <option value="in_progress">In Progress</option>
+                    <option value="completed">Completed</option>
+                </select>
 
-        <button type="submit">Submit Task</button>
-    </form>
-</div>
-<div class="container">
-    <br>
-    <table id="toDoTable">
-        <tr>
-        <th>ID</th>
-        <th>Task Description</th>
-        <th>Target Date</th>
-        <th>Target Time</th>
-        <th>Status</th>
-        <th>created at</th>
-        </tr>
-        <!--
+
+            </div>
+
+            <button type="submit">Submit Task</button>
+        </form>
+    </div>
+    <div class="container">
+        <br>
+        <table id="toDoTable">
+            <tr>
+                <th>ID</th>
+                <th>Task Description</th>
+                <th>Target Date</th>
+                <th>Target Time</th>
+                <th>Status</th>
+                <th>created at</th>
+                <th>Actions</th>
+            </tr>
+            <!--
         <tr>
             <td>1</td>
             <td>project documentation</td>
@@ -120,6 +123,15 @@
             <td>compeleted</td>
             <td></td>
         </tr>
+          <select id="status" disabled required>
+                <option value="" selected>Select status</option>
+                <option value="pending" selected>Pending</option>
+                <option value="completed">Completed</option>
+                <option value="finished">Finished</option>
+                <option value="in_progress">In Progress</option>
+                <option value="on_hold">On Hold</option>
+                <option value="cancelled">Cancelled</option>
+            </select>
         <tr>
             <td>4</td>
             <td>project documentation</td>
@@ -137,10 +149,11 @@
             <td></td>
         </tr>
     -->
-    </table>
-</div>
+        </table>
+    </div>
 
-        
-        
-   </body>
+
+
+</body>
+
 </HTML>
