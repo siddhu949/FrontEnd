@@ -1,3 +1,4 @@
+const searchInput=document.getElementById('search');
 setInterval(function () {
   var date = new Date()
   var time = date.toLocaleTimeString();
@@ -110,15 +111,38 @@ function renderListTable(value, index, array) {
 
 
   // Attach event listener to change status and button text
- actionBtn.addEventListener('click', function () {
+//  actionBtn.addEventListener('click', function () {
+//   if (newstatusTd.innerText === "pending") {
+//     newstatusTd.innerText = "inprogress";
+//     actionBtn.innerText = "Completed";
+//   } else if (newstatusTd.innerText === "inprogress") {
+//     newstatusTd.innerText = "completed";
+//     actionBtn.style.display = "none";
+//   }
+// });
+actionBtn.addEventListener('click', function () {
   if (newstatusTd.innerText === "pending") {
     newstatusTd.innerText = "inprogress";
     actionBtn.innerText = "Completed";
+
+    // Update the status in toDoList
+    var task = toDoList.find(function (item) {
+      return item.toDoId === value.toDoId;
+    });
+    if (task) task.status = "inprogress";
+
   } else if (newstatusTd.innerText === "inprogress") {
     newstatusTd.innerText = "completed";
     actionBtn.style.display = "none";
+
+    // Update the status in toDoList
+    var task = toDoList.find(function (item) {
+      return item.toDoId === value.toDoId;
+    });
+    if (task) task.status = "completed";
   }
 });
+
 
   newActionTd.appendChild(actionBtn);
   var editBtn = document.createElement('button');
@@ -332,3 +356,22 @@ window.onload = function () {
   document.getElementById("targetDate").min = today;
 
 };
+searchInput.addEventListener("input",function(){
+  var query=this.value.trim().toLowerCase();
+  //filter function using value 
+  var filteredList =toDoList.filter(function(value,index,array){
+    return (
+      value.taskDescription.toLowerCase().includes(query)||
+      value.status.toLowerCase().includes(query)
+    );
+  });
+//clear the existing row
+var table=document.getElementById("toDoTable");
+while(table.rows.length > 1){
+  table.deleteRow(1);
+}
+// table.innerHTML="";
+//rendering the filtered list
+renderTodoItems(filteredList);
+});
+
