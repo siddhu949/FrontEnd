@@ -120,7 +120,38 @@ function renderListTable(value, index, array) {
 //     actionBtn.style.display = "none";
 //   }
 // });
-actionBtn.addEventListener('click', function () {
+// actionBtn.addEventListener('click', function () {
+//   if (newstatusTd.innerText === "pending") {
+//     newstatusTd.innerText = "inprogress";
+//     actionBtn.innerText = "Completed";
+
+//     // Update the status in toDoList
+//     var task = toDoList.find(function (item) {
+//       return item.toDoId === value.toDoId;
+//     });
+//     if (task) task.status = "inprogress";
+
+//   } else if (newstatusTd.innerText === "inprogress") {
+//     newstatusTd.innerText = "completed";
+//     actionBtn.style.display = "none";
+
+//     // Update the status in toDoList
+//     var task = toDoList.find(function (item) {
+//       return item.toDoId === value.toDoId;
+//     });
+//     if (task) task.status = "completed";
+//   }
+// });
+actionBtn.addEventListener('click', function (event) {
+  console.log("Event type:", event.type);         // → click
+  console.log("Clicked element:", event.target);  // → the button (actionBtn)
+
+  // Example: Highlight the button briefly when clicked
+  event.target.style.backgroundColor = "lightgreen";
+  setTimeout(function () {
+    event.target.style.backgroundColor = ""; // reset after 0.5s
+  }, 500);
+
   if (newstatusTd.innerText === "pending") {
     newstatusTd.innerText = "inprogress";
     actionBtn.innerText = "Completed";
@@ -142,6 +173,7 @@ actionBtn.addEventListener('click', function () {
     if (task) task.status = "completed";
   }
 });
+
 
 
   newActionTd.appendChild(actionBtn);
