@@ -68,6 +68,8 @@ Collections.sort(al,new Idcomparator);
 For(student data s: al)
 Sysout(s.id+s.name);
 Using comparable interfaces to sort in set user defined data tree set
+13-08-2025
+not done
 
 
 
