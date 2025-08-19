@@ -1,0 +1,76 @@
+Map - hash map
+Map<Integer,Integer> m= new Hash map<>();
+M.put
+Traverse 
+Using key set
+Set<Integer> s =m.keySet();
+Second 
+Entryset - get key and get value it is a sub interface of map
+Use all methods 
+User defined objects:
+Int id
+String name
+Constructors 
+Another class
+Map<Integer,class name> m = new hashmap<>();
+m.put (1,new person(1,"person");
+Set s= m.keyset();//1234
+For (int i:s)
+Sysout m.get(i).id+m.get(i).name
+Searching with id
+For (int i:s)
+If (i==2)
+sysout(m.get(i).name)
+Store a list
+Ex batch- students
+Map<Integer,List<class>>=new hasmap
+List<class name> batch1= new ArrayList<>();
+batch1.add (new classname(id,string);
+Same for batch 2
+M.put (10259,batch1)
+M.put(90909,batch2)
+Set s = m.key set();
+For(int i:s)//10259
+For(person p: m.get(i))//batch inside list
+Sysout (p.getId())
+M.get(i).size
+Map int int-batch no and size
+Map<Int,int>m2
+Int sizeofstudent=0
+In for
+Sizeofstudent= m.get(i).size()
+M2.put(i, sizeofstudent)
+Tranverse
+Keyset
+And for each
+Teacher program in array list
+Programmatical between haspmap linked hashmap and trees
+
+How to sort user defined 
+Comparator and comparable interfaces
+
+Public class Idcomparator implements comparator <studentdata>
+Public int compare(studentdata o1,student o2)
+If(o1.id==o2.id)
+Return 0;
+Else if(o1.id>o2.id)
+Return 1
+Else return -1
+Another class comstumain
+Arraylist<student data>a1= new ArrayList<>();
+a1.ads(new studentdata(3,palak));
+a1.ads(new studentdata(2,palak));
+a1.ads(new studentdata(1,palak));
+a1.ads(new studentdata(4,palak));
+Sysout (a1);
+Sysout(after sort)
+Collections.sort(al,new Idcomparator);
+For(student data s: al)
+Sysout(s.id+s.name);
+Using comparable interfaces to sort in set user defined data tree set
+13-08-2025
+not done
+
+
+
+
