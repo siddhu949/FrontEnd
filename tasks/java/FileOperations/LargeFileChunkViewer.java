@@ -54,3 +54,58 @@ public class LargeFileChunkViewer {
         }
     }
 }
+// import java.io.RandomAccessFile;
+
+// public class ThreadedRandomReader {
+//     static class FileChunkReader extends Thread {
+//         private final String fileName;
+//         private final long start;
+//         private final long size;
+
+//         public FileChunkReader(String fileName, long start, long size) {
+//             this.fileName = fileName;
+//             this.start = start;
+//             this.size = size;
+//         }
+
+//         @Override
+//         public void run() {
+//             try (RandomAccessFile raf = new RandomAccessFile(fileName, "r")) {
+//                 // Move pointer to start position
+//                 raf.seek(start);
+
+//                 byte[] buffer = new byte[(int) size];
+//                 int read = raf.read(buffer);
+
+//                 if (read > 0) {
+//                     String chunkData = new String(buffer, 0, read);
+//                     System.out.println("Thread " + getName() + " read: \n" + chunkData + "\n---");
+//                 }
+
+//             } catch (Exception e) {
+//                 e.printStackTrace();
+//             }
+//         }
+//     }
+
+//     public static void main(String[] args) {
+//         String fileName = "bigfile.txt";  // Imagine 200GB log file
+
+//         try (RandomAccessFile raf = new RandomAccessFile(fileName, "r")) {
+//             long fileSize = raf.length();
+//             int numThreads = 4;  // Parallel threads
+//             long chunkSize = fileSize / numThreads;
+
+//             // Create and start threads
+//             for (int i = 0; i < numThreads; i++) {
+//                 long start = i * chunkSize;
+//                 long size = (i == numThreads - 1) ? (fileSize - start) : chunkSize;
+//                 new FileChunkReader(fileName, start, size).start();
+//             }
+
+//         } catch (Exception e) {
+//             e.printStackTrace();
+//         }
+//     }
+// }
+
