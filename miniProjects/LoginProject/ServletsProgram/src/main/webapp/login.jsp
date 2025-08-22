@@ -42,13 +42,14 @@
 							<div class="form-group">
 								<label for="password"><i class="zmdi zmdi-lock"></i></label> <input
 									type="password" name="password" id="password"
-									placeholder="Password" />
+									placeholder="Password" required/>
 							</div>
 							<div class="form-group">
-								<input type="checkbox" name="remember-me" id="remember-me"
+								<!--  <input type="checkbox" name="remember-me" id="remember-me"
 									class="agree-term" /> <label for="remember-me"
 									class="label-agree-term"><span><span></span></span>Remember
-									me</label>
+									me</label>-->
+									<a href="forgotPassword.jsp">Forgot Password?</a>
 							</div>
 							<div class="form-group form-button">
 								<input type="submit" name="signin" id="signin"
@@ -79,13 +80,28 @@
 	
 	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<link rel="stylesheet" href="alert/dist/sweetalert.css">
-	
-	<script type="text/javascript">
+		<script type="text/javascript">
     var status = document.getElementById("status").value;
     if (status === "failed") {
         swal("sorry", "username or password is inncorrect", "error");
+    }     
+    
+    else if (status === "invalidEmail") {
+        swal("sorry", "invalid user name", "error");
     } 
-</script>
+    
+    else if (status === "invalidPasssword") {
+        swal("sorry", "invalid password", "error");
+    } 
+    else if (status === "resetSuccess") {
+        swal("congrats", "your password resetted successfully", "success");
+    } 
+    else if (status === "resetFailed") {
+        swal("sorry", "password not resetted ", "error");
+    } 
+    
+    
+    </script> 
 </body>
 <!-- This templates was made by Colorlib (https://colorlib.com) -->
 </html>

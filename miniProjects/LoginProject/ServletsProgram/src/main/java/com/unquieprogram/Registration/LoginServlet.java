@@ -42,12 +42,28 @@ public class LoginServlet extends HttpServlet {
 //	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 //	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+	
+		
 		// TODO Auto-generated method stub
 		String uemail =request.getParameter("username");
 		String upwd =request.getParameter("password");
 		
+		
+		
 		RequestDispatcher rd=null;
 		HttpSession session =request.getSession();
+		
+		if(uemail==null||uemail=="") {
+			request.setAttribute("status","invalidEmail");
+			rd=request.getRequestDispatcher("login.jsp");
+			rd.forward(request, response);
+		}
+		if(upwd==null||upwd=="") {
+			request.setAttribute("status","invalidPasssword");
+			rd=request.getRequestDispatcher("login.jsp");
+			rd.forward(request, response);
+		}
 	
 		
 		try {
