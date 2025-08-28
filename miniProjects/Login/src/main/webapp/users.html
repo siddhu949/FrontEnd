@@ -1,0 +1,71 @@
+	<!DOCTYPE html>
+	<html lang="en">
+	<head>
+	  <meta charset="UTF-8">
+	  <title>Users List</title>
+	  <style>
+	    table { border-collapse: collapse; width: 70%; margin: 20px auto; }
+	    th, td { border: 1px solid #333; padding: 8px; text-align: center; }
+	    th { background-color: #f2f2f2; }
+	  </style>
+	</head>
+	<body>
+	  <h2 style="text-align:center;">Registered Users</h2>
+	  <table id="usersTable">
+	    <thead>
+	      <tr>
+	        <th>ID</th>
+	        <th>Username</th>
+	        <th>Password</th>
+	        <th>Edit</th>
+	        <th>Delete</th>
+	      </tr>
+	    </thead>
+	    <tbody></tbody>
+	  </table>
+	
+	  <script src="GetUsers"></script>
+	  <script>
+	    var tbody = document.getElementById("usersTable").getElementsByTagName("tbody")[0];
+	    for(var i=0;i<users.length;i++){
+	        var row = document.createElement("tr");
+	
+	        var cellId = document.createElement("td"); cellId.appendChild(document.createTextNode(users[i].id)); row.appendChild(cellId);
+	        var cellUname = document.createElement("td"); cellUname.appendChild(document.createTextNode(users[i].uname)); row.appendChild(cellUname);
+	        var cellUpwd = document.createElement("td"); cellUpwd.appendChild(document.createTextNode(users[i].upwd)); row.appendChild(cellUpwd);
+	
+	        // Edit button
+	        var cellEdit = document.createElement("td");
+	        var editBtn = document.createElement("button");
+	        editBtn.innerHTML = "Edit";
+	        editBtn.onclick = (function(id, uname, upwd){
+	            return function(){
+	                // Open edit page with query parameters
+	                //IIFE (Immediately Invoked Function Expression)
+	                window.location.href = "editUser?id=" + id + "&uname=" + encodeURIComponent(uname) + "&upwd=" + encodeURIComponent(upwd);
+	            };
+	        })(users[i].id, users[i].uname, users[i].upwd);
+	        cellEdit.appendChild(editBtn);
+	        row.appendChild(cellEdit);
+	
+	        // Delete button
+	  var cellDelete = document.createElement("td");
+	var delBtn = document.createElement("button");
+	delBtn.innerHTML = "Delete";
+	
+	// store id in a property of the button
+	delBtn.userId = users[i].id;
+	
+	delBtn.onclick = function() {
+	    if(confirm("Are you sure?")) {
+	        window.location.href = "DeleteUser?id=" + this.userId;
+	    }
+	};
+	
+	cellDelete.appendChild(delBtn);
+	row.appendChild(cellDelete);
+	tbody.appendChild(row);
+	    }
+	  </script>
+	</body>
+	</html>
