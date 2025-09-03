@@ -5,7 +5,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 
 public class DbUtility  {
-	   static final String URL = "jdbc:mysql://localhost:3306/todo?useSSL=FALSE";
+	   static final String URL = "jdbc:mysql://localhost:3306/todoserv?useSSL=FALSE";
 	    static final String USER = "root"; // your MySQL username
 	    static final String PASS = "root"; // your MySQL password
 
