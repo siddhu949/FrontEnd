@@ -149,20 +149,42 @@ public class TodoDAO {
 //        }
 //    }
     
+//    public void updateTodo(Todo todo) throws SQLException {
+//        String sql = "UPDATE todo_items SET todo_title=?, todo_desc=?, target_datetime=?, modified_by=?, modified_date=NOW() WHERE todo_id=?";
+//        try (Connection conn = DbUtility.connect();
+//             PreparedStatement ps = conn.prepareStatement(sql)) {
+//            ps.setString(1, todo.getTodoTitle());
+//            ps.setString(2, todo.getTodoDesc());
+//            ps.setTimestamp(3, Timestamp.valueOf(todo.getTargetDatetime()));
+//            ps.setString(4, todo.getModifiedBy());
+//            ps.setInt(5, todo.getTodoId());
+//
+//            int rowsAffected = ps.executeUpdate();
+//            System.out.println("Rows affected in update: " + rowsAffected); // Debug statement
+//        }
+//    }
+ // ------------------ FULL UPDATE TODO (includes status) ------------------
     public void updateTodo(Todo todo) throws SQLException {
-        String sql = "UPDATE todo_items SET todo_title=?, todo_desc=?, target_datetime=?, modified_by=?, modified_date=NOW() WHERE todo_id=?";
+        String sql = "UPDATE todo_items " +
+                     "SET todo_title=?, todo_desc=?, target_datetime=?, todo_status_code=?, modified_by=?, modified_date=NOW() " +
+                     "WHERE todo_id=? AND user_id=?";
+
         try (Connection conn = DbUtility.connect();
              PreparedStatement ps = conn.prepareStatement(sql)) {
+
             ps.setString(1, todo.getTodoTitle());
             ps.setString(2, todo.getTodoDesc());
             ps.setTimestamp(3, Timestamp.valueOf(todo.getTargetDatetime()));
-            ps.setString(4, todo.getModifiedBy());
-            ps.setInt(5, todo.getTodoId());
+            ps.setString(4, todo.getTodoStatusCode());   // <-- include status update
+            ps.setString(5, todo.getModifiedBy());
+            ps.setInt(6, todo.getTodoId());
+            ps.setInt(7, todo.getUserId());
 
-            int rowsAffected = ps.executeUpdate();
-            System.out.println("Rows affected in update: " + rowsAffected); // Debug statement
+            int rows = ps.executeUpdate();
+            System.out.println("UpdateTodo rows affected: " + rows);
         }
     }
+
 
 
 }

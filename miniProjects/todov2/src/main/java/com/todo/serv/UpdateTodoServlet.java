@@ -1,6 +1,7 @@
 package com.todo.serv;
 
 import com.todo.model.Todo;
+import com.todo.DAO.TodoDAO;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -14,45 +15,40 @@ import jakarta.servlet.http.HttpSession;
 @WebServlet("/updateTodo")
 public class UpdateTodoServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
+    private TodoDAO todoDAO = new TodoDAO();
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
         try {
             HttpSession session = request.getSession(false);
             String username = (String) session.getAttribute("username");
 
-            String todoIdStr = request.getParameter("todoId");
+            int todoId = Integer.parseInt(request.getParameter("todoId"));
             String title = request.getParameter("todoTitle");
             String desc = request.getParameter("todoDesc");
             String targetStr = request.getParameter("targetDatetime");
-
-            if (todoIdStr == null || todoIdStr.trim().isEmpty()) {
-                response.sendRedirect("todo.jsp?msg=invalidId");
-                return;
-            }
 
             LocalDateTime targetDateTime;
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
                 targetDateTime = LocalDateTime.parse(targetStr, formatter);
             } catch (Exception e) {
-                // Log the error for debugging
-                System.err.println("Failed to parse targetDatetime: " + targetStr);
                 targetDateTime = LocalDateTime.now();
             }
 
             Todo t = new Todo();
-            t.setTodoId(Integer.parseInt(todoIdStr));
+            t.setTodoId(todoId);
             t.setTodoTitle(title);
             t.setTodoDesc(desc);
             t.setTargetDatetime(targetDateTime);
-            t.setModifiedBy(username); // Set the modifiedBy field
+            t.setModifiedBy(username);
 
-            TodoServ.updateTodo(t);
+            todoDAO.updateTodo(t);
+            session.setAttribute("successMessage", "Todo updated successfully!");
             response.sendRedirect("todo");
         } catch (Exception e) {
             e.printStackTrace();
             response.sendRedirect("todo.jsp?msg=error");
         }
     }
-
 }
