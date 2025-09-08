@@ -31,6 +31,9 @@ public class TodoServ extends HttpServlet {
             HttpSession session = request.getSession(false);
             todo.setModifiedBy(session != null ? (String) session.getAttribute("username") : "Guest");
 
+            // **Set modified date to now**
+            todo.setModifiedDate(LocalDateTime.now());
+
             try {
                 todoDAO.updateTodo(todo);
             } catch (Exception e) {
@@ -40,6 +43,7 @@ public class TodoServ extends HttpServlet {
             response.sendRedirect("todo"); // reload page
             return;
         }
+
 
         // --- Normal page rendering ---
         response.setContentType("text/html");
@@ -113,7 +117,7 @@ public class TodoServ extends HttpServlet {
                 // Created date safe
                 html.append("<td>").append(t.getCreatedDate() != null ? t.getCreatedDate().format(formatter) : "N/A").append("</td>");
 
-                // Action buttons: only next status
+                /// Action buttons: only next status
                 html.append("<td>");
                 switch (t.getTodoStatusCode()) {
                     case "P":
@@ -125,10 +129,11 @@ public class TodoServ extends HttpServlet {
                             .append("&status=C' class='btn btn-sm btn-success'>Completed</a>");
                         break;
                     case "C":
-                        html.append("<!-- Done -->");
+                        html.append("<span class='text-success'>Done</span>");
                         break;
                 }
                 html.append("</td>");
+
 
                 html.append("</tr>");
             }
