@@ -1,0 +1,82 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.logReg</groupId>
+  <artifactId>LoginReg</artifactId>
+  <packaging>war</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>LoginReg Maven Webapp</name>
+  <url>http://maven.apache.org</url>
+<properties>
+    <java.version>21</java.version>
+    <spring.version>6.1.6</spring.version>
+    <jakarta.servlet.version>6.0.0</jakarta.servlet.version>
+    <jakarta.jsp.version>3.1.1</jakarta.jsp.version>
+    <jakarta.jstl.version>3.0.1</jakarta.jstl.version>
+</properties>
+
+<dependencies>
+    <!-- Spring Web MVC -->
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-webmvc</artifactId>
+        <version>${spring.version}</version>
+    </dependency>
+
+    <!-- Jakarta Servlet API (provided by server) -->
+    <dependency>
+        <groupId>jakarta.servlet</groupId>
+        <artifactId>jakarta.servlet-api</artifactId>
+        <version>${jakarta.servlet.version}</version>
+        <scope>provided</scope>
+    </dependency>
+
+    <!-- Jakarta JSP API (provided by server) -->
+    <dependency>
+        <groupId>jakarta.servlet.jsp</groupId>
+        <artifactId>jakarta.servlet.jsp-api</artifactId>
+        <version>${jakarta.jsp.version}</version>
+        <scope>provided</scope>
+    </dependency>
+
+    <!-- JSTL Implementation -->
+    <dependency>
+        <groupId>org.glassfish.web</groupId>
+        <artifactId>jakarta.servlet.jsp.jstl</artifactId>
+        <version>${jakarta.jstl.version}</version>
+    </dependency>
+    
+    <dependency>
+    <groupId>org.springframework.security</groupId>
+    <artifactId>spring-security-crypto</artifactId>
+    <version>6.2.0</version> <!-- Use compatible version -->
+</dependency>
+
+    <dependency>
+    	<groupId>org.springframework.samples</groupId>
+    	<artifactId>spring-mvc-showcase</artifactId>
+    	<version>1.0.0-BUILD-SNAPSHOT</version>
+    </dependency>
+    
+    <dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-databind</artifactId>
+    <version>2.16.2</version> <!-- Use a recent stable version -->
+</dependency>
+<dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-core</artifactId>
+    <version>2.16.2</version>
+</dependency>
+<dependency>
+    <groupId>com.fasterxml.jackson.core</groupId>
+    <artifactId>jackson-annotations</artifactId>
+    <version>2.16.2</version>
+</dependency>
+
+</dependencies>
+
+  <build>
+    <finalName>LoginReg</finalName>
+  </build>
+</project>
