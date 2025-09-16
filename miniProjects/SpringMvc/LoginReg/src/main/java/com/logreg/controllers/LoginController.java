@@ -1,16 +1,15 @@
 package com.logreg.controllers;
 
 
-import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-
+import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/auth") //  group routes under /auth
+@RequestMapping("/auth") // group routes under /auth
 public class LoginController {
 
     @Autowired
@@ -19,7 +18,6 @@ public class LoginController {
     // Show login page
     @GetMapping("/login")
     public String showLoginForm(HttpSession session) {
-        //  If already logged in → skip login page
         if (session.getAttribute("loggedInUser") != null) {
             return "redirect:/auth/welcome";
         }
@@ -28,8 +26,8 @@ public class LoginController {
 
     // Handle login POST
     @PostMapping("/login")
-    public String login(@RequestParam String username,
-                        @RequestParam String password,
+    public String login(@RequestParam("username") String username,
+                        @RequestParam("password") String password,
                         HttpSession session,
                         Model model) {
 
@@ -44,7 +42,7 @@ public class LoginController {
         return "redirect:/auth/welcome";
     }
 
-    // Welcome page (protected)
+    // Protected welcome page
     @GetMapping("/welcome")
     public String welcome(HttpSession session, Model model) {
         User loggedInUser = (User) session.getAttribute("loggedInUser");
@@ -58,11 +56,10 @@ public class LoginController {
         return "welcome";
     }
 
-   
+    // Logout
     @GetMapping("/logout")
     public String logout(HttpSession session) {
-        session.invalidate(); // clears session
-        return "redirect:/auth/login?logout"; // optional query param for UI
+        session.invalidate();
+        return "redirect:/auth/login?logout";
     }
 }
-

@@ -3,26 +3,27 @@ package com.logreg.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-
-
-import jakarta.servlet.http.HttpSession;
-import org.springframework.ui.Model;
-
 @Controller
+@RequestMapping("/auth") // group routes under /auth
 public class RegistrationController {
 
     @Autowired
     private UserService userService;
 
+    // Show registration page
     @GetMapping("/register")
     public String showForm() {
         return "registration";
     }
 
+    // Handle registration form
     @PostMapping("/register")
-    public String register(@RequestParam String username, @RequestParam String password, Model model) {
+    public String register(@RequestParam("username") String username,
+                           @RequestParam("password") String password,
+                           Model model) {
         if (userService.findByUsername(username) != null) {
             model.addAttribute("error", "Username already exists!");
             return "registration";
