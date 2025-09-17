@@ -1,5 +1,5 @@
 package com.book.dto;
-
-public class ResponseStatus {
-
+public enum ResponseStatus {
+    SUCCESS,
+    FAILURE
 }
