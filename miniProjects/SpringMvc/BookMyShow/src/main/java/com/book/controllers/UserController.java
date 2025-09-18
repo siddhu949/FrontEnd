@@ -24,9 +24,7 @@ public class UserController {
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
-    // -------------------------------
-    // ✅ 1. Form-based SIGNUP (JSP)
-    // -------------------------------
+
     @PostMapping("/signup")
     public String signupUserForm(@RequestParam("name") String name,
                                  @RequestParam("email") String email,
@@ -106,5 +104,6 @@ public class UserController {
         return response;
     }
 }
+
 
 
