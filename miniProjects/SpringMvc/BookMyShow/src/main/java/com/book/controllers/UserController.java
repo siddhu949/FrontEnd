@@ -44,9 +44,7 @@ public class UserController {
         }
     }
 
-    // -------------------------------
-    // ✅ 2. Form-based LOGIN (JSP)
-    // -------------------------------
+
     @PostMapping("/login")
     public String loginUserForm(@RequestParam("email") String email,
                                 @RequestParam("password") String password,
@@ -71,9 +69,7 @@ public class UserController {
         }
     }
 
-    // --------------------------------
-    // ✅ 3. REST API SIGNUP (JSON)
-    // --------------------------------
+
     @PostMapping("/api/signup")
     @ResponseBody
     public SignupUserResponseDTO signupUserApi(@RequestBody SignupUserRequestDTO requestDTO) {
@@ -92,9 +88,7 @@ public class UserController {
         return response;
     }
 
-    // --------------------------------
-    // ✅ 4. REST API LOGIN (JSON)
-    // --------------------------------
+
     @PostMapping("/api/login")
     @ResponseBody
     public LoginResponseDto loginUserApi(@RequestBody LoginRequestDto requestDto) {
@@ -112,4 +106,5 @@ public class UserController {
         return response;
     }
 }
+
 
