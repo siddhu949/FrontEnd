@@ -28,6 +28,7 @@ It provides features for **user registration, login, and profile management** wi
 ---
 
 ## 📂 Project Structure
+```
 BookMyShow/
 ├── src/main/java/com/book/...
 │ ├── config/ (SecurityConfig)
@@ -42,7 +43,7 @@ BookMyShow/
 │ └── web.xml
 ├── database.txt
 └── pom.xml
-
+```
 ## ⚙️ Setup & Run
 1. Clone this repository:
    ```bash
