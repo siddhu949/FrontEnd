@@ -55,9 +55,22 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-	@Override
-	public User getUserByEmail(String email) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public User getUserByEmail(String email) throws Exception {
+        String sql = "SELECT * FROM users WHERE email = ?";
+        try {
+            return jdbcTemplate.queryForObject(sql, (rs, rowNum) -> 
+                new User(
+                    rs.getInt("id"),
+                    rs.getString("name"),
+                    rs.getString("email"),
+                    rs.getString("password")
+                ),
+                email
+            );
+        } catch (org.springframework.dao.EmptyResultDataAccessException e) {
+            throw new Exception("User not found with email: " + email);
+        }
+    }
+
 }

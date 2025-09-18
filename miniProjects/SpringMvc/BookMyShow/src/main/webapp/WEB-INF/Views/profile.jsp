@@ -100,7 +100,7 @@
                             <p><strong>Email:</strong> ${email}</p>
                             <p><strong>User ID:</strong> ${userId}</p>
                         </div>
-                        <a href="/logout" class="btn btn-primary">Logout</a>
+                        <a href="login" class="btn btn-primary">Logout</a>
                     </div>
                 </div>
             </div>

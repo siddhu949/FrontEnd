@@ -116,7 +116,7 @@
                         <h3 class="card-title">Welcome Back</h3>
                     </div>
                     <div class="card-body">
-                        <form action="/login" method="post">
+                        <form action="login" method="post">
                             <div class="mb-3">
                                 <input type="email" class="form-control" name="email" placeholder="Email" required>
                             </div>
@@ -126,7 +126,7 @@
                             <button type="submit" class="btn btn-primary">Login</button>
                         </form>
                         <div class="register-link">
-                            Don't have an account? <a href="<c:url value='/register'/>">Register here</a>
+                            Don't have an account? <a href="<c:url value='register'/>">Register here</a>
                         </div>
                     </div>
                 </div>

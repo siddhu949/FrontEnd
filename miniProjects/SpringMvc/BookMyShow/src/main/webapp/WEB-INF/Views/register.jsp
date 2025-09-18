@@ -115,7 +115,7 @@
                         <h3 class="card-title">Create Account</h3>
                     </div>
                     <div class="card-body">
-                        <form action="/signup" method="post">
+                        <form action="signup" method="post">
                             <div class="mb-3">
                                 <input type="text" class="form-control" name="name" placeholder="Full Name" required>
                             </div>
@@ -128,7 +128,7 @@
                             <button type="submit" class="btn btn-primary">Register</button>
                         </form>
                         <div class="login-link">
-                            Already have an account? <a href="/login">Login here</a>
+                            Already have an account? <a href='login'>Login here</a>
                         </div>
                     </div>
                 </div>
