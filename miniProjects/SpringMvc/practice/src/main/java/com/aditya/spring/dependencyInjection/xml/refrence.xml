@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <beans xmlns="http://www.springframework.org/schema/beans"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:schemaLocation="http://www.springframework.org/schema/beans
+                               http://www.springframework.org/schema/beans/spring-beans.xsd">
+        <!-- Bean definitions go here -->
+        <!-- scope which is web container decide how the way to create the object -->
+       
+       <bean id="e" class="com.aditya.spring.dependencyInjectiion.pojo.Engine">
+       <property name="engineName" value="AplhaJ"></property>
+       <property name="ModelYear" value="2025"></property>
+       </bean>
+       <bean id="c" class="com.aditya.spring.dependencyInjectiion.pojo.Car">
+       <property name="company" value="audi"></property>
+       <property name="carName" value="xl100"/>
+       <property name="engine" ref="e"/>
+  
+       </bean>
+        
+    </beans>
