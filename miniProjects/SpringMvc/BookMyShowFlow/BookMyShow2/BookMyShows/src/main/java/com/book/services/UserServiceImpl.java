@@ -1,15 +1,17 @@
 package com.book.services;
 
-
+import com.book.model.User;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.book.model.User;
-
 @Service
 public class UserServiceImpl implements UserService {
+
+    private static final String USER_ID_SESSION_ATTR = "userId";
+    private static final String USER_NAME_SESSION_ATTR = "userName";
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -45,11 +47,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean login(String email, String password) {
+    public boolean login(String email, String password) throws Exception {
         try {
-            String sql = "SELECT password FROM users WHERE email = ?";
-            String storedPassword = jdbcTemplate.queryForObject(sql, String.class, email);
-            return passwordEncoder.matches(password, storedPassword);
+            String sql = "SELECT id, name, password FROM users WHERE email = ?";
+            return jdbcTemplate.queryForObject(sql, (rs, rowNum) -> {
+                String storedPassword = rs.getString("password");
+                if (passwordEncoder.matches(password, storedPassword)) {
+                    return true;
+                }
+                return false;
+            }, email);
         } catch (org.springframework.dao.EmptyResultDataAccessException e) {
             return false; // user not found
         }
@@ -59,7 +66,7 @@ public class UserServiceImpl implements UserService {
     public User getUserByEmail(String email) throws Exception {
         String sql = "SELECT * FROM users WHERE email = ?";
         try {
-            return jdbcTemplate.queryForObject(sql, (rs, rowNum) -> 
+            return jdbcTemplate.queryForObject(sql, (rs, rowNum) ->
                 new User(
                     rs.getInt("id"),
                     rs.getString("name"),
@@ -73,4 +80,21 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public Long getCurrentUserId(HttpSession session) {
+        Object obj = session.getAttribute("userId");
+        if (obj == null) {
+            throw new RuntimeException("User not logged in");
+        }
+        if (!(obj instanceof Number)) {
+            throw new RuntimeException("Invalid userId type");
+        }
+        return ((Number) obj).longValue();
+    }
+
+
+    @Override
+    public boolean isUserLoggedIn(HttpSession session) {
+        return session.getAttribute(USER_ID_SESSION_ATTR) != null;
+    }
 }

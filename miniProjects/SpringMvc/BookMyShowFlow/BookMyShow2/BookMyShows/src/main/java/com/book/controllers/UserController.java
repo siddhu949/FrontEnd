@@ -6,7 +6,9 @@ import com.book.dto.ResponseStatus;
 import com.book.dto.SignupUserRequestDTO;
 import com.book.dto.SignupUserResponseDTO;
 import com.book.model.User;
-import com.book.services.UserService;
+import com.book.services.UserServiceImpl;
+
+import jakarta.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,10 +22,9 @@ import org.slf4j.LoggerFactory;
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private UserServiceImpl userService;
 
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-
 
     @PostMapping("/signup")
     public String signupUserForm(@RequestParam("name") String name,
@@ -34,28 +35,31 @@ public class UserController {
             User user = userService.signupUser(name, email, password);
             model.addAttribute("message", "Signup successful! Please login.");
             logger.info("Signup successful for email: {}", email);
-            return "login"; // Redirects to login.jsp
+            return "login"; 
         } catch (Exception e) {
             logger.error("Signup failed for email: {}", email, e);
             model.addAttribute("message", "Signup failed. Try again.");
-            return "register"; // Stays on register.jsp
+            return "register"; 
         }
     }
-
 
     @PostMapping("/login")
     public String loginUserForm(@RequestParam("email") String email,
                                 @RequestParam("password") String password,
-                                Model model) {
+                                Model model,
+                                HttpSession session) {
         try {
             boolean loggedIn = userService.login(email, password);
             if (loggedIn) {
                 User user = userService.getUserByEmail(email);
-                model.addAttribute("name", user.getName());
-                model.addAttribute("email", user.getEmail());
-                model.addAttribute("userId", user.getId());
+
+                // ✅ Store in session
+                session.setAttribute("userId", user.getId());
+                session.setAttribute("userName", user.getName());
+                session.setAttribute("userEmail", user.getEmail());
+
                 logger.info("Login successful for email: {}", email);
-                return "profile"; // profile.jsp
+                return "redirect:/welcome"; // redirect so model attrs aren't lost
             } else {
                 model.addAttribute("message", "Invalid email or password.");
                 return "login";
@@ -66,7 +70,6 @@ public class UserController {
             return "login";
         }
     }
-
 
     @PostMapping("/api/signup")
     @ResponseBody
@@ -86,7 +89,6 @@ public class UserController {
         return response;
     }
 
-
     @PostMapping("/api/login")
     @ResponseBody
     public LoginResponseDto loginUserApi(@RequestBody LoginRequestDto requestDto) {
@@ -103,7 +105,28 @@ public class UserController {
         }
         return response;
     }
+
+    @GetMapping("/welcome")
+    public String showWelcomePage(Model model, HttpSession session) {
+        if (!userService.isUserLoggedIn(session)) {
+            return "redirect:/login";
+        }
+
+        // ✅ use userName from session
+        String userName = (String) session.getAttribute("userName");
+        model.addAttribute("name", userName);
+        return "welcome";
+    }
+
+    @GetMapping("/bookmyshow/welcome")
+    public String redirectToWelcome() {
+        return "redirect:/welcome";
+    }
+
+    // ✅ Add logout
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/login";
+    }
 }
-
-
-
