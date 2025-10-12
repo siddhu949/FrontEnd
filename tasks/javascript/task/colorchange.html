@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <style>
+    .content{
+      text-align: center;
+      margin-top:30rem;
+    }
+  </style>
+<div class="content">
+<h2>Change Background Color</h2>
+
+<button onclick="changeColor()">Click Me</button>
+</div>
+<script>
+  // List of colors to switch between
+  let colors = ["red", "green", "blue", "yellow"];
+  let index = 0;
+
+  function changeColor() {
+    // Change background color
+    document.body.style.backgroundColor = colors[index];
+    // Move to the next color
+    index++;
+    // If we reach the end, start again
+    if (index >= colors.length) {
+      index = 0;
+    }
+  }
+</script>
+
+</body>
+</html>
