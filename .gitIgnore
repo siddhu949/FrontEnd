@@ -95,3 +95,5 @@ application-local.properties
 gradle/
 gradlew
 gradlew.bat
+
+.gitIgnore
