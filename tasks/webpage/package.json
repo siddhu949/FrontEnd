@@ -1,0 +1,28 @@
+{
+  "name": "webpage",
+  "version": "1.0.0",
+  "description": "for the jsx building",
+  "scripts": {
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/siddhu949/FrontEnd.git#main"
+  },
+  "keywords": [
+    ".jsx",
+    "movies"
+  ],
+  "author": "aditya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/siddhu949/FrontEnd/issues"
+  },
+  "homepage": "https://github.com/siddhu949/FrontEnd/tree/main#readme",
+  "dependencies": {
+    "parcel": "^2.16.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  }
+}
