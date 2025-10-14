@@ -11,15 +11,7 @@ public interface SeatDAO {
     boolean deleteSeat(int seatId);
     boolean markSeatUnavailable(int seatId);       // Mark a seat as booked
 }
-//package com.booking.DAO;
-//
-//import com.booking.DTOs.PaymentDTO;
-//
-//public interface PaymentDAO {
-//    boolean addPayment(PaymentDTO payment);
-//    PaymentDTO getPaymentById(int paymentId);
-//    boolean updatePaymentStatus(int paymentId, String status);
-//}
+
 //package com.booking.DAO;
 //
 //import java.util.List;
