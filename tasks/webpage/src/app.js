@@ -1,53 +1,30 @@
 import React, { useState } from "react";
 
-export default function App() {
-  const nowShowing = [
-    { title: "Spider-Man: No Way Home", img: "https://tse2.mm.bing.net/th/id/OIP.jFWga73Vye9w2gQvqWJX6gHaLH?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3", desc: "Action, 2h 28m" },
-    { title: "Avatar: The Way of Water", img: "https://tse4.mm.bing.net/th/id/OIP.73SG9-j2EMH3k-ekDwfqzwHaLH?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3", desc: "Adventure, 3h 12m" },
-    { title: "Black Panther: Wakanda Forever", img: "https://th.bing.com/th/id/OIP.rnMklcBwV1xZl5ndF5sTSAHaK-?w=205&h=304&c=7&r=0&o=7&cb=12&dpr=1.3&pid=1.7&rm=3", desc: "Action, 2h 41m" },
-    { title: "The Batman", img: "https://th.bing.com/th/id/OIP.ORrLW2ur-82K0mQ2QeH1jgHaK-?w=117&h=180&c=7&r=0&o=7&cb=12&dpr=1.3&pid=1.7&rm=3", desc: "Crime, 2h 56m" },
-    { title: "Doctor Strange: Multiverse of Madness", img: "https://th.bing.com/th/id/OIP.n7o8B0-d6P4-r3150OWN5AHaK9?w=205&h=304&c=7&r=0&o=7&cb=12&dpr=1.3&pid=1.7&rm=3", desc: "Fantasy, 2h 6m" }
-  ];
+// Navbar Component
+const Navbar = () => (
+  <nav className="navbar">
+    <h1 style={{ display: 'flex', alignItems: 'center', gap: '8px', color: '#ff3d00' }}>
 
-  const comingSoon = [
-    { title: "Jurassic World: Dominion", img: "https://th.bing.com/th/id/OIP.NsVJ8Tg22sXq3mjtsaTowgHaKe?w=117&h=180&c=7&r=0&o=7&cb=12&dpr=1.3&pid=1.7&rm=3", desc: "Adventure, 2h 27m" },
-    { title: "Guardians of the Galaxy Vol.3", img: "https://th.bing.com/th/id/OIP.4E32Anj4RLBR4T3KZGh9cgHaLH?w=204&h=306&c=7&r=0&o=7&cb=12&dpr=1.3&pid=1.7&rm=3", desc: "Action, 2h 30m" },
-    { title: "Mission Impossible: Dead Reckoning", img: "https://th.bing.com/th/id/OIP.qrICVBnT6qb3GAyU2HdDkwHaJv?w=128&h=180&c=7&r=0&o=7&cb=12&dpr=1.3&pid=1.7&rm=3", desc: "Action, 2h 25m" },
-    { title: "The Flash", img: "https://th.bing.com/th/id/OIP.lXzCvrnInawFeoJW9JUIBAHaLH?w=115&h=180&c=7&r=0&o=7&cb=12&dpr=1.3&pid=1.7&rm=3", desc: "Action, 2h 20m" },
-    { title: "Ant-Man and the Wasp: Quantumania", img: "https://th.bing.com/th/id/OIP.0LOcwcHglyOwFYhBgBwoFQHaK-?w=125&h=185&c=7&r=0&o=7&cb=12&dpr=1.3&pid=1.7&rm=3", desc: "Adventure, 2h 5m" }
-  ];
 
-  const [city, setCity] = useState("");
-  const [query, setQuery] = useState("");
+  MovieBook
+</h1>
+    <ul>
+      <li><a href="#now-showing">Now Showing</a></li>
+      <li><a href="#coming-soon">Coming Soon</a></li>
+      <li><a href="#">Profile</a></li>
+    </ul>
+  </nav>
+);
 
-  const handleSearch = () => {
-    alert(`Searching for "${query}" in ${city || "All Cities"}...`);
-  };
-
-  const renderMovies = (movies) =>
-    movies.map((movie, index) => (
-      <div className="movie-card" key={index}>
-        <img src={movie.img} alt={movie.title} />
-        <div className="movie-info">
-          <h3>{movie.title}</h3>
-          <p>{movie.desc}</p>
-        </div>
-      </div>
-    ));
-
-  return (
-    <div>
-      <nav className="navbar">
-        <h1>MovieBook</h1>
-        <ul>
-          <li><a href="#now-showing">Now Showing</a></li>
-          <li><a href="#coming-soon">Coming Soon</a></li>
-          <li><a href="#">Profile</a></li>
-        </ul>
-      </nav>
-
-      <div className="banner">
-        <h2>Find Movies, Theaters & More</h2>
+// Banner Component with Featured Movie
+const Banner = ({ featuredMovie, city, setCity, query, setQuery, handleSearch }) => (
+  <div className="banner">
+    <div className="banner-content">
+      <div className="banner-left">
+        <h1>{featuredMovie.title}</h1>
+        <p>{featuredMovie.genre}, {featuredMovie.language}</p>
+        <p>{featuredMovie.cast}</p>
+        <button className="book-now">Book Now</button>
         <div className="search-box">
           <select value={city} onChange={(e) => setCity(e.target.value)}>
             <option value="">Select City</option>
@@ -65,16 +42,110 @@ export default function App() {
           <button onClick={handleSearch}>🔍</button>
         </div>
       </div>
-
-      <div className="section" id="now-showing">
-        <h2>Now Showing</h2>
-        <div className="movies">{renderMovies(nowShowing)}</div>
-      </div>
-
-      <div className="section" id="coming-soon">
-        <h2>Coming Soon</h2>
-        <div className="movies">{renderMovies(comingSoon)}</div>
+      <div className="banner-right">
+        <img src={featuredMovie.img} alt={featuredMovie.title} />
       </div>
     </div>
+  </div>
+);
+
+// MovieCard Component
+const MovieCard = ({ title, img, genre, language, cast, rating }) => (
+  <div className="movie-card">
+    <img src={img} alt={title} />
+    <div className="overlay">
+      <h3>{title}</h3>
+      <p>Genre: {genre}</p>
+      <p>Language: {language}</p>
+      <p>Cast: {cast}</p>
+      <p>Rating: {rating}</p>
+    </div>
+  </div>
+);
+
+// MovieSection Component
+const MovieSection = ({ sectionTitle, movies }) => (
+  <div className="section" id={sectionTitle.toLowerCase().replace(" ", "-")}>
+    <h2>{sectionTitle}</h2>
+    <div className="movies">
+      {movies.map((movie, index) => (
+        <MovieCard key={index} {...movie} />
+      ))}
+    </div>
+  </div>
+);
+
+// App Component
+export default function App() {
+  const [city, setCity] = useState("");
+  const [query, setQuery] = useState("");
+
+  const handleSearch = () => {
+    alert(`Searching for "${query}" in ${city || "All Cities"}...`);
+  };
+
+  const nowShowing = [
+    {
+      title: "Spider-Man: No Way Home",
+      img: "https://tse2.mm.bing.net/th/id/OIP.jFWga73Vye9w2gQvqWJX6gHaLH?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3",
+      genre: "Action",
+      language: "English",
+      cast: "Tom Holland, Zendaya",
+      rating: "8.5/10"
+    },
+    {
+      title: "Avatar: The Way of Water",
+      img: "https://tse4.mm.bing.net/th/id/OIP.73SG9-j2EMH3k-ekDwfqzwHaLH?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3",
+      genre: "Adventure",
+      language: "English",
+      cast: "Sam Worthington, Zoe Saldana",
+      rating: "8.3/10"
+    },
+    {
+      title: "Black Panther: Wakanda Forever",
+      img: "https://th.bing.com/th/id/OIP.rnMklcBwV1xZl5ndF5sTSAHaK-?w=205&h=304&c=7&r=0&o=7&cb=12&dpr=1.3&pid=1.7&rm=3",
+      genre: "Action",
+      language: "English",
+      cast: "Letitia Wright, Lupita Nyong'o",
+      rating: "8.0/10"
+    }
+  ];
+
+  const comingSoon = [
+    {
+      title: "Jurassic World: Dominion",
+      img: "https://th.bing.com/th/id/OIP.NsVJ8Tg22sXq3mjtsaTowgHaKe?w=117&h=180&c=7&r=0&o=7&cb=12&dpr=1.3&pid=1.7&rm=3",
+      genre: "Adventure",
+      language: "English",
+      cast: "Chris Pratt, Bryce Dallas Howard",
+      rating: "7.5/10"
+    },
+    {
+      title: "Guardians of the Galaxy Vol.3",
+      img: "https://th.bing.com/th/id/OIP.4E32Anj4RLBR4T3KZGh9cgHaLH?w=204&h=306&c=7&r=0&o=7&cb=12&dpr=1.3&pid=1.7&rm=3",
+      genre: "Action",
+      language: "English",
+      cast: "Chris Pratt, Zoe Saldana",
+      rating: "8.0/10"
+    }
+  ];
+
+  // Featured movie (first movie from Now Showing)
+  const featuredMovie = nowShowing[0];
+
+  return (
+    <>
+      <Navbar />
+      <Banner 
+        featuredMovie={featuredMovie} 
+        city={city} 
+        setCity={setCity} 
+        query={query} 
+        setQuery={setQuery} 
+        handleSearch={handleSearch} 
+      />
+      <MovieSection sectionTitle="Now Showing" movies={nowShowing} />
+      <MovieSection sectionTitle="Coming Soon" movies={comingSoon} />
+    </>
   );
 }
