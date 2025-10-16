@@ -1,18 +1,21 @@
 {
-  "name": "webpage",
+  "name": "tmf_react",
   "version": "1.0.0",
-  "description": "for the jsx building",
+  "description": "first react app",
   "scripts": {
-    "start": "parcel src/index.html",
-    "build": "parcel build src/index.html"
+    "test": "test"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/siddhu949/FrontEnd.git#main"
   },
   "keywords": [
-    ".jsx",
-    "movies"
+    "first",
+    "react",
+    "app",
+    "react",
+    "dom",
+    "react"
   ],
   "author": "aditya",
   "license": "ISC",
@@ -20,8 +23,11 @@
     "url": "https://github.com/siddhu949/FrontEnd/issues"
   },
   "homepage": "https://github.com/siddhu949/FrontEnd/tree/main#readme",
+  "devDependencies": {
+    "parcel": "^2.16.0"
+  },
   "dependencies": {
-    "parcel": "^2.16.0",
+    "dom": "^0.0.3",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   }
