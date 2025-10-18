@@ -22,7 +22,7 @@ This repository showcases work under the TMF Java Full Stack program, authored b
 ## Live Demo / GitHub Pages
 
 A GitHub Pages version of the project is available at: 
-https://yourusername.github.io/your-repo-name/
+[https://vercel.app](https://front-end-theta-rouge-10.vercel.app/)
 
 ---
 
