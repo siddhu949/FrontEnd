@@ -142,6 +142,11 @@
             border-color: #fc8181;
             cursor: not-allowed;
             color: white;
+            opacity: 0.6;
+        }
+        .seat.booked:hover {
+            transform: none;
+            cursor: not-allowed;
         }
         .aisle {
             width: 40px;
@@ -324,10 +329,7 @@
                 </div>
                 
                 <form action="${pageContext.request.contextPath}/booking-summary" method="post" id="bookingForm">
-                    <input type="hidden" name="movieId" value="${movieId}">
-                    <input type="hidden" name="theatreId" value="${theatreId}">
-                    <input type="hidden" name="showTime" value="${showTime}">
-                    <input type="hidden" name="date" value="${date}">
+                    <input type="hidden" name="showId" value="${showId}">
                     <input type="hidden" name="selectedSeats" id="selectedSeatsInput">
                     <button type="submit" class="proceed-btn" id="proceedBtn" disabled>
                         Proceed to Booking
@@ -342,35 +344,44 @@
     
     <script>
         let selectedSeats = [];
-        const pricePerSeat = 200;
+        let selectedSeatIds = [];
+        let seatPrices = {};
         
         function toggleSeat(seatElement) {
             if (seatElement.classList.contains('booked')) {
                 return;
             }
             
-            const seatNumber = seatElement.getAttribute('data-seat');
+            const seatId = seatElement.getAttribute('data-seat-id');
+            const seatLabel = seatElement.getAttribute('data-seat-label');
+            const seatPrice = parseFloat(seatElement.getAttribute('data-price'));
             
             if (seatElement.classList.contains('selected')) {
                 seatElement.classList.remove('selected');
-                selectedSeats = selectedSeats.filter(s => s !== seatNumber);
+                selectedSeats = selectedSeats.filter(s => s !== seatLabel);
+                selectedSeatIds = selectedSeatIds.filter(id => id !== seatId);
+                delete seatPrices[seatId];
             } else {
                 if (selectedSeats.length >= 10) {
                     alert('You can select maximum 10 seats at a time');
                     return;
                 }
                 seatElement.classList.add('selected');
-                selectedSeats.push(seatNumber);
+                selectedSeats.push(seatLabel);
+                selectedSeatIds.push(seatId);
+                seatPrices[seatId] = seatPrice;
             }
             
             updateSummary();
         }
         
         function updateSummary() {
+            const totalPrice = Object.values(seatPrices).reduce((sum, price) => sum + price, 0);
+            
             document.getElementById('seatCount').textContent = selectedSeats.length;
             document.getElementById('seatNumbers').textContent = selectedSeats.length > 0 ? selectedSeats.join(', ') : '-';
-            document.getElementById('totalAmount').textContent = selectedSeats.length * pricePerSeat;
-            document.getElementById('selectedSeatsInput').value = selectedSeats.join(',');
+            document.getElementById('totalAmount').textContent = totalPrice.toFixed(2);
+            document.getElementById('selectedSeatsInput').value = selectedSeatIds.join(',');
             
             const proceedBtn = document.getElementById('proceedBtn');
             proceedBtn.disabled = selectedSeats.length === 0;

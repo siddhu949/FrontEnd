@@ -53,6 +53,7 @@
             flex: 1;
             display: flex;
             gap: 1rem;
+            max-width: 400px;
         }
         .search-location input {
             flex: 1;
@@ -60,6 +61,12 @@
             border: 2px solid #e2e8f0;
             border-radius: 8px;
             font-size: 1rem;
+            transition: all 0.3s;
+        }
+        .search-location input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
         }
         .search-btn {
             padding: 0.75rem 2rem;
@@ -69,6 +76,11 @@
             border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
+            transition: all 0.3s;
+        }
+        .search-btn:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
         }
         .theatres-list {
             display: flex;
@@ -176,7 +188,7 @@
                 </div>
                 
                 <div class="search-location">
-                    <input type="text" placeholder="Search by location..." id="locationSearch">
+                    <input type="text" placeholder="Search by location or city..." id="locationSearch" onkeyup="searchLocation()">
                     <button class="search-btn" onclick="searchLocation()">🔍 Search</button>
                 </div>
             </div>
@@ -187,13 +199,20 @@
                 <div class="theatre-card">
                     <div class="theatre-header">
                         <div>
-                            <h3 class="theatre-name">🎭 ${theatre.name}</h3>
+                            <h3 class="theatre-name">🎭 ${theatre.theatreName}</h3>
                             <p class="theatre-location">📍 ${theatre.location}</p>
                         </div>
                         <div class="theatre-facilities">
-                            <span class="facility-badge">🍿 Food & Beverages</span>
-                            <span class="facility-badge">🅿️ Parking</span>
-                            <span class="facility-badge">♿ Wheelchair Access</span>
+                            <c:choose>
+                                <c:when test="${not empty theatre.facilities}">
+                                    <c:forEach items="${theatre.facilities.split(',')}" var="facility">
+                                        <span class="facility-badge">${facility.trim()}</span>
+                                    </c:forEach>
+                                </c:when>
+                                <c:otherwise>
+                                    <span class="facility-badge">Standard Facilities</span>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                     
@@ -223,9 +242,46 @@
         }
         
         function searchLocation() {
-            const location = document.getElementById('locationSearch').value;
-            alert('Search functionality for: ' + location);
+            const searchText = document.getElementById('locationSearch').value.toLowerCase();
+            const theatreCards = document.querySelectorAll('.theatre-card');
+            let visibleCount = 0;
+            
+            theatreCards.forEach(card => {
+                const theatreName = card.querySelector('.theatre-name').textContent.toLowerCase();
+                const theatreLocation = card.querySelector('.theatre-location').textContent.toLowerCase();
+                
+                if (theatreName.includes(searchText) || theatreLocation.includes(searchText)) {
+                    card.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // Show/hide no results message
+            let noResultsMsg = document.getElementById('noResultsMessage');
+            if (visibleCount === 0 && searchText !== '') {
+                if (!noResultsMsg) {
+                    noResultsMsg = document.createElement('div');
+                    noResultsMsg.id = 'noResultsMessage';
+                    noResultsMsg.style.cssText = 'background: #ebf8ff; color: #2c5282; padding: 2rem; border-radius: 12px; text-align: center; margin-top: 2rem;';
+                    noResultsMsg.innerHTML = '<h3 style="margin-bottom: 0.5rem;">🔍 No theatres found</h3><p>Try searching with a different location or clear the search.</p>';
+                    document.querySelector('.theatres-list').appendChild(noResultsMsg);
+                }
+            } else if (noResultsMsg) {
+                noResultsMsg.remove();
+            }
         }
+        
+        // Clear search when input is empty
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('locationSearch');
+            searchInput.addEventListener('input', function() {
+                if (this.value === '') {
+                    searchLocation();
+                }
+            });
+        });
     </script>
 </body>
 </html>

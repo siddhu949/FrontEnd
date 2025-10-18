@@ -154,18 +154,18 @@
 <body>
     <!-- Include Header -->
     <jsp:include page="header.jsp" />
-
+    
     <div class="container">
         <div class="page-header">
             <h1>🎬 All Movies</h1>
             <p>Browse and book your favorite movies</p>
         </div>
-
+        
         <!-- Search Bar -->
         <div class="search-bar">
             <input type="text" class="search-input" id="movieSearch" placeholder="🔍 Search for movies..." onkeyup="searchMovies()">
         </div>
-
+        
         <!-- Filter Section -->
         <div class="filter-section">
             <h3>Filter by Genre</h3>
@@ -178,14 +178,14 @@
                 <button class="filter-btn" onclick="filterMovies('Comedy')">Comedy</button>
             </div>
         </div>
-
+        
         <!-- Error Message -->
         <c:if test="${not empty error}">
             <div style="background: #fff5f5; color: #c53030; padding: 1rem; border-radius: 8px; margin-bottom: 2rem; border-left: 4px solid #fc8181;">
                 <strong>⚠️ Error:</strong> ${error}
             </div>
         </c:if>
-
+        
         <!-- Movies Grid -->
         <div class="movies-grid" id="moviesGrid">
             <c:choose>
@@ -205,7 +205,7 @@
                                 <p class="movie-info">🎭 ${movie.genre} | ⏱️ ${movie.duration} min</p>
                                 <p class="movie-rating">⭐ ${movie.rating}/10</p>
                                 <form action="${pageContext.request.contextPath}/theatres" method="get">
-                                    <input type="hidden" name="movieId" value="${movie.movieId}" />
+                                    <input type="hidden" name="movieId" value="${movie.movieId}">
                                     <button type="submit" class="book-btn">Book Now</button>
                                 </form>
                             </div>
@@ -215,30 +215,45 @@
             </c:choose>
         </div>
     </div>
-
+    
+    <!-- Include Footer -->
+    <jsp:include page="footer.jsp" />
+    
     <script>
-        function filterMovies(genre) {
-            const cards = document.querySelectorAll(".movie-card");
-            const buttons = document.querySelectorAll(".filter-btn");
-            buttons.forEach(btn => btn.classList.remove("active"));
-            event.target.classList.add("active");
-
-            cards.forEach(card => {
-                const cardGenre = card.getAttribute("data-genre");
-                if (genre === "all" || cardGenre === genre) {
-                    card.style.display = "block";
+        // Search functionality
+        function searchMovies() {
+            const searchInput = document.getElementById('movieSearch').value.toLowerCase();
+            const movieCards = document.querySelectorAll('.movie-card');
+            
+            movieCards.forEach(card => {
+                const movieTitle = card.querySelector('.movie-title').textContent.toLowerCase();
+                const movieGenre = card.querySelector('.movie-info').textContent.toLowerCase();
+                
+                if (movieTitle.includes(searchInput) || movieGenre.includes(searchInput)) {
+                    card.style.display = 'block';
                 } else {
-                    card.style.display = "none";
+                    card.style.display = 'none';
                 }
             });
         }
-
-        function searchMovies() {
-            const input = document.getElementById("movieSearch").value.toLowerCase();
-            const cards = document.querySelectorAll(".movie-card");
-            cards.forEach(card => {
-                const title = card.querySelector(".movie-title").textContent.toLowerCase();
-                card.style.display = title.includes(input) ? "block" : "none";
+        
+        // Filter by genre
+        function filterMovies(genre) {
+            const movieCards = document.querySelectorAll('.movie-card');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            
+            // Update active button
+            filterButtons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            movieCards.forEach(card => {
+                const cardGenre = card.getAttribute('data-genre');
+                
+                if (genre === 'all' || cardGenre === genre) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
             });
         }
     </script>

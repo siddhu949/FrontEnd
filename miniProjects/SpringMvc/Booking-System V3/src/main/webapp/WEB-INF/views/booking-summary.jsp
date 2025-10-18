@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -214,6 +215,10 @@
             <p>Please review your booking details before confirming</p>
         </div>
         
+        <!-- Split selectedSeats and store count -->
+        <c:set var="seatArray" value="${fn:split(selectedSeats, ',')}"/>
+        <c:set var="seatCount" value="${fn:length(seatArray)}"/>
+        
         <div class="booking-card">
             <div class="card-header">
                 <h3>🎬 ${movieName}</h3>
@@ -234,22 +239,22 @@
                     
                     <div class="detail-item">
                         <div class="detail-label">🎫 Number of Seats</div>
-                        <div class="detail-value">${selectedSeats.split(',').length} Seats</div>
+                        <div class="detail-value">${seatCount} Seats</div>
                     </div>
                 </div>
                 
                 <div class="seats-display">
                     <h4>Selected Seats</h4>
                     <div class="seat-badges">
-                        <c:forEach items="${selectedSeats.split(',')}" var="seat">
-                            <span class="seat-badge">${seat}</span>
+                        <c:forEach items="${seatArray}" var="seat">
+                            <span class="seat-badge">${fn:trim(seat)}</span>
                         </c:forEach>
                     </div>
                 </div>
                 
                 <div class="price-summary">
                     <div class="price-row">
-                        <span class="price-label">Ticket Price (${selectedSeats.split(',').length} seats)</span>
+                        <span class="price-label">Ticket Price (${seatCount} seats)</span>
                         <span class="price-value">₹${ticketPrice}</span>
                     </div>
                     <div class="price-row">
