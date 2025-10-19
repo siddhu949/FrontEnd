@@ -39,6 +39,4 @@ Access detailed documentation via Google Docs here:
 
 * **Email:** aditya94.dev@gmail.com
 * **Batch ID:** 10259
-
-
 ---
