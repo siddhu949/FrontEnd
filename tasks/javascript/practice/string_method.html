@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id = "one"><button onclick="prompt">click me</button></div>
+    <script>
+       //string methods
+       console.log("javascript".length);
+       let str ="naveen";
+       console.log(str[2]);
+       console.log(str.charAt(2));
+       console.log(str.charCodeAt(2));
+    console.log(str.toLowerCase());
+    console.log(str.toUpperCase());
+    // in java slice not possible
+    console.log(str.slice(2,-5));
+    // naveen -012345
+    //           dont include -5// -5 -4 -3-2-1
+    console.log(str.substring(-2,4));//but dont include 4 before 4value it takes
+ //in suibstring -2 is converted into 0 
+ console.log(str.concat("automation".concat("lab")));
+ let str1 ="java_javascript_python";
+ let pok=str1.split("_");//it return an array 
+console.log(pok);
+console.log(pok[10]);
+console.log(str1.includes("lang"));//for validation purpose
+console.log("dev test FrameWork Dev".replace("dev","js")) ;// the dev first one is replace
+//to replace all the dev we use replace all
+console.log("dev test FrameWork Dev".replaceAll("dev","js"));
+console.log("10-09-2025".replaceAll("-" ,"/"));
+console.log( "  hello  js  ".trim())//three method in trim this methods removes space
+console.log("  hello js  ".trimStart());
+console.log("  hello js   ".trimEnd());
+//padding method concept
+console.log("Naveen".padStart(10,"*"));
+console.log("naveen".padEnd(12,"*"));
+//start with and end with mwhtod true or false boolean value
+console.log(str1.startsWith("j"));
+//repeat method
+console.log("dev".repeat(3));
+console.log("naveen automation lab".indexOf("automation"));
+console.log("dev".indexOf("j"));
+console.log("naveen of naveen".lastIndexOf("naveen"));
+//searchg method
+console.log("naveen automation labs".search("automation"));
+    </script>
+</body>
+</html>

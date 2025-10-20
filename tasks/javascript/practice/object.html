@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // object is a collection of elements in the form of the properties and methods
+        //properties are key and value pair
+        //create the object in five ways
+        //object literal
+        //new kwyword with object constructor
+        //new keyword with construtor function
+        //object.create()method
+        //classes
+        //through literal
+        let movie1={
+            name :"RRR",
+            release:2024,
+            director:"rajamouli"
+        }//object doeesn't foolow the insertion order it follows the alphabetic order
+        //access the object values - 2 ways
+        console.log(movie1.name);//access through the key
+        movie1["name"];//square braces with quotes
+        //
+        var release = movie1.release;
+        //value insertion in key
+        movie1.name="Kantara chapter-1";
+        console.log(movie1.name);
+        movie1.budget=2000;//can add to existing object
+        //using new operator object constructer
+        let movie =new Object();
+        movie.name="mass";
+        movie.hero="nagarjuna akhineni";
+        movie.hit="hit";
+        // using new with constructer function
+        function user(name,age,place){
+            this.name="naveen";
+            this.age=21;
+            this.place="vizag";
+        }
+        //creating object with constructer  function call
+        let user1 = new user("abc",25,"hyderabad");//can create the object n times using the constructer function call
+
+        console.log(user1);
+        let movie3 =Object.create(movie1,{
+            name:{
+                value:"RRR",
+            },
+            Music:{
+                value:"keeravani"
+            }
+        }
+            
+        );
+        console.log(movie3);
+
+    </script>
+</body>
+</html>
