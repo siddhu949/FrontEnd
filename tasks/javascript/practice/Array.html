@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // const numbers =[1,2,3,4,5];
+        // numbers.forEach(consoleItem);
+        // //function
+        // function consoleItem(item,index,array){
+        //     console.log('a['+index+']='+item);
+        // }
+        // //arrow function
+        //     numbers.forEach((item,index,array) =>{
+        //         console.log('a['+index+']='+item);
+        //         console.log(array);
+        // });
+        // //calucate the sum in foreach method
+        // let sum=0;
+        // numbers.forEach(item =>{
+        //     sum=+item;
+        // });
+        // console.log(sum);
+        // //how many times a letter arrives in an array
+        // const letters =['a','b','a','c','a'];
+        // let count ={};
+        // letters.forEach(items=>{
+        //     if(count[items]){
+        //         count[items]++;
+
+        //     }else{
+        //         count[items]=1;
+        //     }
+        // });
+        // console.log(count);
+        const number =[1,2,3,4,5];
+        number.forEach(display);
+        function display(item,index,array){
+            console.log('a'+[index]+'='+item);
+            console.log(array);
+        }
+        let count ={};
+        number.forEach((items)=>{
+            count[items]=(count[items]||0)+1;;
+            
+        });
+        console.log(count);
+         let sum=0;
+         number.forEach(items=>{
+            sum+=items;
+         });
+         console.log(sum);
+         //arrive of letters
+         const letters=['a','b','c'];
+         let occur={};
+         letters.forEach(items=>{
+            if(occur[items]){
+                occur[items]++;
+            }
+            else{
+                occur[items]=1;
+            }
+         });
+         console.log(occur);
+    </script>
+</body>
+</html>
