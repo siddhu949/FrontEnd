@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import Body from "./components/Body";
 import Header from "./components/Header";
 import { Footer } from "./components/Footer";
-import UserPage from "./components/userPage";
+// import UserPage from "./components/userPage";
 
 var reactElement = document.getElementById("root");
 var reactRoot = createRoot(reactElement);
@@ -16,7 +16,7 @@ const App = () => {
       <Header />
       <Body />
       <Footer />
-      <UserPage/>
+      {/* <UserPage/> */}
     </>
   );
 };
