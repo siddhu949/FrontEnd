@@ -1,4 +1,4 @@
-Map - hash map
+Map -  hash map
 Map<Integer,Integer> m= new Hash map<>();
 M.put
 Traverse 
