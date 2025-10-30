@@ -4,7 +4,10 @@
   "description": "this is react practice",
 
   "scripts": {
+     "start": "parcel src/index.html",
+    "build": "parcel build src/index.html",
     "test": "echo \"Error: no test specified\" && exit 1"
+    
   },
   "repository": {
     "type": "git",
@@ -24,5 +27,18 @@
     "parcel": "^2.16.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
+  },
+  
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
