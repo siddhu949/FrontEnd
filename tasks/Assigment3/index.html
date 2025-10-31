@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>react app </title>
+     <!-- FontAwesome for icons -->
+    
+    <Script type="module" src="app.js"></Script>
+</head>
+<body>
+    <div id="root"></div>
+    <div id="mainRoot"></div>
+    <script>
+       
+        //GET THE ROOT DOM NODE
+        var htmlRoot =document.getElementById("mainRoot");
+        //CREATE A REACT ROOT
+        var rootReact =ReactDOM.createRoot(htmlRoot);
+        //CREATE REACT ELEMENT
+        var h1Element=React.createElement("h1",null,"this is heading 1");
+        var h2Element=React.createElement("h2",null,"this is heading 2");
+        var h3Element=React.createElement("h3",null,"this is heading 3");
+        //CREATE CONTAINER DIV AND CHILDHREN
+        var reactContainer=React.createElement("div",
+        {"id":"reactRoot"},
+        [h1Element,h2Element,h3Element]);
+        //RENDER INTO ROOT
+        rootReact.render(reactContainer);
+    
+
+        
+        
+    </script>
+    
+</body>
+</html>
