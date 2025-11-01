@@ -1,0 +1,17 @@
+.App {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.home, .restaurant, .cart {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+h2 {
+  color: #282c3f;
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+}
