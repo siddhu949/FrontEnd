@@ -1,0 +1,21 @@
+{
+  "name": "login_page",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "vite": "^7.1.12"
+  },
+  "dependencies": {
+    "@vitejs/plugin-react": "^5.1.0",
+    "react": "^19.2.0",
+    "react-app": "^1.1.2",
+    "react-dom": "^19.2.0"
+  }
+}
