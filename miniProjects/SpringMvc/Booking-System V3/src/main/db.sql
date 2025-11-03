@@ -444,3 +444,146 @@ SELECT CONCAT('Total Screens: ', COUNT(*)) as Info FROM screens;
 SELECT CONCAT('Total Seats: ', COUNT(*)) as Info FROM seats;
 SELECT CONCAT('Total Shows: ', COUNT(*)) as Info FROM shows;
 SELECT CONCAT('Total Seat Statuses: ', COUNT(*)) as Info FROM show_seat_status;
+
+
+USE movie_booking_db;
+
+-- ============================================
+--  ADDITIONAL MOVIES
+-- ============================================
+
+INSERT INTO movies (movie_name, genre, duration, rating, release_date, description, language, is_active) VALUES
+('Dune: Part Two', 'Sci-Fi', 166, 8.3, '2024-03-01', 'Paul Atreides unites with the Fremen to wage war against House Harkonnen.', 'English', TRUE),
+('Oppenheimer', 'Biography', 180, 8.9, '2023-07-21', 'The story of J. Robert Oppenheimer and the creation of the atomic bomb.', 'English', TRUE),
+('RRR', 'Action', 182, 8.0, '2022-03-25', 'Two revolutionaries fight against the British Raj.', 'Telugu', TRUE),
+('Jawan', 'Action', 169, 7.5, '2023-09-07', 'A high-octane thriller starring Shah Rukh Khan in dual roles.', 'Hindi', TRUE),
+('Leo', 'Thriller', 164, 7.8, '2023-10-19', 'A cafe owner’s hidden past catches up with him.', 'Tamil', TRUE),
+('Spider-Man: No Way Home', 'Action', 148, 8.3, '2021-12-17', 'Spider-Man faces multiple villains from the multiverse.', 'English', TRUE),
+('KGF Chapter 2', 'Action', 168, 8.4, '2022-04-14', 'Rocky battles new enemies to retain his empire.', 'Kannada', TRUE);
+
+-- ============================================
+--  ADDITIONAL THEATRES
+-- ============================================
+
+INSERT INTO theatres (theatre_name, location, city, address, phone_number, total_screens, facilities) VALUES
+('PVR ICON', 'Phoenix MarketCity', 'Bengaluru', 'Whitefield Main Road, Bengaluru', '080-99998888', 5, 'IMAX,Parking,Food,VIP Lounge'),
+('INOX GVK One', 'GVK One Mall', 'Hyderabad', 'Banjara Hills, Hyderabad', '040-11112222', 4, '3D,Food,Recliner Seats'),
+('Cinepolis VR Mall', 'VR Mall', 'Chennai', 'Anna Nagar, Chennai', '044-22223333', 5, '4DX,Parking,Food'),
+('Miraj Cinemas', 'Forum Mall', 'Kochi', 'Edappally, Kochi', '0484-77778888', 4, 'Recliners,Snacks,3D'),
+('PVR Plaza', 'Connaught Place', 'Delhi', 'CP Main Circle, New Delhi', '011-55556666', 3, 'VIP,IMAX,Snacks');
+
+-- ============================================
+--  ADDITIONAL SCREENS (New Theatres)
+-- ============================================
+
+INSERT INTO screens (theatre_id, screen_name, total_seats, screen_type) VALUES
+(4, 'Screen 3', 120, 'Standard'),
+(4, 'Screen 4', 120, 'Standard'),
+(5, 'Screen 3', 150, '3D'),
+(6, 'Screen 1', 100, 'Standard'),
+(7, 'Screen 1', 120, 'Standard'),
+(8, 'Screen 1', 96, 'Standard'),
+(9, 'Screen 1', 120, 'IMAX'),
+(10, 'Screen 1', 96, 'Standard'),
+(11, 'Screen 1', 120, 'Standard'),
+(12, 'Screen 1', 150, '4DX');
+
+-- ============================================
+--  UNIFORM SEAT INSERTION (SAME PRICE)
+-- ============================================
+
+DELIMITER //
+CREATE PROCEDURE insert_uniform_seats(IN p_screen_id INT, IN p_price DECIMAL(10,2))
+BEGIN
+    DECLARE v_row VARCHAR(5);
+    DECLARE v_num INT;
+    DECLARE v_row_letters VARCHAR(8) DEFAULT 'ABCDEFGH';
+    DECLARE i INT DEFAULT 1;
+
+    WHILE i <= 8 DO
+        SET v_row = SUBSTRING(v_row_letters, i, 1);
+        SET v_num = 1;
+        WHILE v_num <= 12 DO
+            INSERT INTO seats (screen_id, seat_row, seat_number, seat_type, price)
+            VALUES (p_screen_id, v_row, v_num, 'Standard', p_price);
+            SET v_num = v_num + 1;
+        END WHILE;
+        SET i = i + 1;
+    END WHILE;
+END//
+DELIMITER ;
+
+-- Call for new screens (uniform pricing)
+CALL insert_uniform_seats(7, 200.00);
+CALL insert_uniform_seats(8, 250.00);
+CALL insert_uniform_seats(9, 300.00);
+CALL insert_uniform_seats(10, 200.00);
+CALL insert_uniform_seats(11, 250.00);
+CALL insert_uniform_seats(12, 350.00);
+
+-- ============================================
+--  ADDITIONAL SHOWS
+-- ============================================
+
+-- Dune: Part Two (movie_id = 6)
+INSERT INTO shows (movie_id, screen_id, show_date, show_time, base_price, is_active) VALUES
+(6, 7, CURDATE(), '10:00:00', 200.00, TRUE),
+(6, 7, CURDATE(), '13:00:00', 200.00, TRUE),
+(6, 7, CURDATE(), '16:00:00', 200.00, TRUE),
+(6, 7, CURDATE(), '19:00:00', 250.00, TRUE),
+(6, 8, CURDATE(), '11:00:00', 250.00, TRUE),
+(6, 8, CURDATE(), '14:00:00', 250.00, TRUE),
+(6, 8, CURDATE(), '17:00:00', 250.00, TRUE),
+(6, 8, CURDATE(), '20:00:00', 300.00, TRUE);
+
+-- RRR (movie_id = 8)
+INSERT INTO shows (movie_id, screen_id, show_date, show_time, base_price, is_active) VALUES
+(8, 9, CURDATE(), '09:30:00', 300.00, TRUE),
+(8, 9, CURDATE(), '12:30:00', 300.00, TRUE),
+(8, 9, CURDATE(), '15:30:00', 300.00, TRUE),
+(8, 9, CURDATE(), '18:30:00', 350.00, TRUE),
+(8, 9, CURDATE(), '21:30:00', 350.00, TRUE);
+
+-- Spider-Man: No Way Home (movie_id = 11)
+INSERT INTO shows (movie_id, screen_id, show_date, show_time, base_price, is_active) VALUES
+(11, 10, CURDATE(), '10:00:00', 200.00, TRUE),
+(11, 10, CURDATE(), '13:00:00', 200.00, TRUE),
+(11, 10, CURDATE(), '16:00:00', 200.00, TRUE),
+(11, 10, CURDATE(), '19:00:00', 250.00, TRUE),
+(11, 10, CURDATE(), '22:00:00', 250.00, TRUE);
+
+-- KGF Chapter 2 (movie_id = 12)
+INSERT INTO shows (movie_id, screen_id, show_date, show_time, base_price, is_active) VALUES
+(12, 12, CURDATE(), '10:00:00', 350.00, TRUE),
+(12, 12, CURDATE(), '13:00:00', 350.00, TRUE),
+(12, 12, CURDATE(), '16:00:00', 350.00, TRUE),
+(12, 12, CURDATE(), '19:00:00', 400.00, TRUE),
+(12, 12, CURDATE(), '22:00:00', 400.00, TRUE);
+
+-- ============================================
+--  INITIALIZE SEAT STATUS FOR NEW SHOWS
+-- ============================================
+
+INSERT INTO show_seat_status (show_id, seat_id, is_booked)
+SELECT s.show_id, st.seat_id, FALSE
+FROM shows s
+JOIN seats st ON st.screen_id = s.screen_id
+WHERE s.show_id > (SELECT MAX(show_id) - 20 FROM shows);
+
+-- ============================================
+--  CLEANUP
+-- ============================================
+
+DROP PROCEDURE IF EXISTS insert_uniform_seats;
+
+-- ============================================
+--  FINAL CHECK
+-- ============================================
+
+SELECT '=== ADDITIONAL DATA INSERTED SUCCESSFULLY ===' AS Status;
+SELECT CONCAT('Total Movies: ', COUNT(*)) AS Movies FROM movies;
+SELECT CONCAT('Total Theatres: ', COUNT(*)) AS Theatres FROM theatres;
+SELECT CONCAT('Total Screens: ', COUNT(*)) AS Screens FROM screens;
+SELECT CONCAT('Total Seats: ', COUNT(*)) AS Seats FROM seats;
+SELECT CONCAT('Total Shows: ', COUNT(*)) AS Shows FROM shows;
+SELECT CONCAT('Total Seat Status: ', COUNT(*)) AS SeatStatus FROM show_seat_status;
