@@ -49,7 +49,7 @@ function Head() {
     async function searchResultFun(val) {
         if (val == "") return;
         const res = await fetch(
-            `https://cors-by-codethread-for-swiggy.vercel.app/cors/dapi/misc/place-autocomplete?input=${val}`
+            `https://www.swiggy.com/dapi/misc/place-autocomplete?input=${val}`
         );
         const data = await res.json();
         setSearchResult(data.data);
@@ -60,7 +60,7 @@ function Head() {
         // console.log(id);
         handleVisibility();
         const res = await fetch(
-            `https://cors-by-codethread-for-swiggy.vercel.app/cors/dapi/misc/address-recommend?place_id=${id}`
+            `https://www.swiggy.com/dapi/misc/address-recommend?place_id=${id}`
         );
         const data = await res.json();
         setCoord({
