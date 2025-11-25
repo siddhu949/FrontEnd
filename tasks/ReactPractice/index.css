@@ -164,6 +164,8 @@
       gap:14px;
     }
     .card{
+      width: 250px;            /* ⭐ fixed width */
+  height: 380px;           /* ⭐ fixed uniform height */
       background:rgba(255,255,255,0.04);
       border-radius:12px;
       overflow:hidden;
@@ -196,6 +198,7 @@
     }
     .meta{
       padding:12px;
+      flex: 1;
     }
     .meta strong{color:white;font-size:15px;}
     .meta p{color:var(--muted);font-size:13px;margin-top:6px;}
@@ -252,3 +255,4 @@
       .hero{flex-direction:column; align-items:stretch}
       .movies-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
     }
+    
