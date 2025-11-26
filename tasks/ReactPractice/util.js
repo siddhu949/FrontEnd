@@ -7501,3 +7501,64 @@ export const resObj = {
   deviceId: "9a768c15-bbdc-d4c1-2454-0f6c75a62bc4",
   csrfToken: "teT0uXkKYb0s-mmbkHzR2LTo5pBNkM-Azy4FqXoA",
 };
+export const dummyMenu = {
+  data: {
+    cards: [
+      {
+        card: {
+          card: {
+            info: {
+              id: "12345",
+              name: "Dummy Restaurant",
+              city: "Hyderabad",
+              areaName: "Madhapur",
+              avgRating: 4.3,
+              totalRatings: 500,
+              costForTwoMessage: "₹300 for two",
+              cuisines: ["Biryani", "North Indian", "Chinese"],
+            },
+          },
+        },
+      },
+      {
+        groupofcards: {
+          cardGroupMap: {
+            REGULAR: {
+              cards: [
+                {
+                  card: {
+                    card: {
+                      title: "Recommended",
+                      itemCards: [
+                        {
+                          card: {
+                            info: {
+                              id: "101",
+                              name: "Chicken Biryani",
+                              price: 24900,
+                              description: "Spicy Hyderabadi biryani",
+                            },
+                          },
+                        },
+                        {
+                          card: {
+                            info: {
+                              id: "102",
+                              name: "Veg Fried Rice",
+                              price: 15900,
+                              description: "Classic Indo-Chinese fried rice",
+                            },
+                          },
+                        },
+                      ],
+                    },
+                  },
+                },
+              ],
+            },
+          },
+        },
+      },
+    ],
+  },
+};

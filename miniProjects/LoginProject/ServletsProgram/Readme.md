@@ -2,7 +2,7 @@
 
 ## 📌 Overview
 
-This project is a **Java Servlet and JSP based Login & Registration System** with features like user registration, login, logout, password recovery via OTP (with **Google App Password for secure email sending**), and password reset.
+This project is a **Java Servlet and JSP based Login & Registration System** with features like user registration, login, logout, password recovery via OTP (with **Google App Password for secure email sending**), and password reset.                        
 It uses **MySQL** for persistent data storage and follows an MVC-style architecture.
 
 ---

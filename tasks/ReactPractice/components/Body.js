@@ -41,18 +41,32 @@ const Body = () => {
     }
   }, [searchText, allRestaurants]);
 
+  // ⭐ Top Rated Filter
+  const filterTopRated = () => {
+    const top = allRestaurants.filter((res) => res.info.avgRating > 4.3);
+    setRestaurants(top);
+  };
+
   return (
     <>
-      <div className="searchingElement">
+      <div className="top-bar">
         <input
+          className="search-input"
           type="text"
           placeholder="Search restaurants..."
           value={searchText}
           onChange={(e) => setSearchText(e.target.value)}
         />
+
+        <button className="top-btn" onClick={filterTopRated}>
+          ⭐ Top Rated
+        </button>
+
+        <button className="reset-btn" onClick={() => setRestaurants(allRestaurants)}>
+          Reset
+        </button>
       </div>
 
-      {/* ⭐ Show shimmer ONLY while restaurants are empty */}
       {restaurants.length === 0 ? (
         <Shimmer />
       ) : (

@@ -1,7 +1,7 @@
 export const TitleComponenet = () => {
-  return <h3>MovieBox</h3>;
+  return <h3>Swiggy</h3>;
 };
 
 export const TitleTagLine = () => {
-  return <h5>Book tickets · Discover · Watch</h5>;
+  return <h5>Food Delivery App</h5>;
 };

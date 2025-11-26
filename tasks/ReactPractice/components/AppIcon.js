@@ -1,7 +1,7 @@
 const AppIcon = () => {
   return (
     <img
-      src="http://icon-library.com/images/free-movies-icon/free-movies-icon-16.jpg"
+      src="https://iconlogovector.com/uploads/images/2024/10/sm-671af2a071074-Swiggy.webp"
       height="100"
       width="100"
     />
