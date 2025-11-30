@@ -32,7 +32,7 @@ Access detailed documentation via Google Docs here:
 
 1. [Java Backend Training Document](https://docs.google.com/document/d/1v34TL_erfKfbicO_MSEZ0odxCt4jSqinJNlfpLxObjY/edit?usp=sharing)
 2. [JavaScript Frontend Training Document](https://docs.google.com/document/d/1oujmHbVn29D2yxp_D5HU4dwatQkXWqgnos0kJHXs_IE/edit?usp=sharing)
-3.[TMF Final Project]
+- 3.[TMF Final Project]
 
 ---
 
